@@ -3,7 +3,6 @@ const app = express() ;
 const cors = require("cors") ;
 const mongoose = require("mongoose")
 const bodyParser = require("body-parser");
-const http = require("http")
 require("dotenv").config();
 
 const yargs = require("yargs/yargs");
@@ -15,6 +14,9 @@ const { commitRepo } = require("./controllers/commit");
 const { pushRepo } = require("./controllers/push");
 const { pullRepo } = require("./controllers/pull");
 const { revertRepo } = require("./controllers/revert");
+const userRouter = require("./routes/user")
+const repoRouter = require("./routes/repo")
+const issueRouter = require("./routes/issue")
 
 yargs(hideBin(process.argv))
 .command("start","start a new server", {} , startServer)
@@ -77,6 +79,11 @@ yargs(hideBin(process.argv))
     app.get("/",(req,res)=>{
       return res.send("Welcome")
     })
+
+    app.use("/user",userRouter)
+    app.use("/repo",repoRouter)
+    app.use("/issue",issueRouter)
+     
     app.listen(PORT,()=>{
       console.log(`App is listening to PORT : ${PORT}`)
     })
