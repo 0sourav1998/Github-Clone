@@ -1,3 +1,11 @@
+const express = require("express");
+const app = express() ;
+const cors = require("cors") ;
+const mongoose = require("mongoose")
+const bodyParser = require("body-parser");
+const http = require("http")
+require("dotenv").config();
+
 const yargs = require("yargs/yargs");
 const { hideBin } = require("yargs/helpers");
 const { initRepo } = require("./controllers/init");
@@ -9,6 +17,7 @@ const { pullRepo } = require("./controllers/pull");
 const { revertRepo } = require("./controllers/revert");
 
 yargs(hideBin(process.argv))
+.command("start","start a new server", {} , startServer)
   .command("init", "Initialise a git repo", {}, initRepo)
   .command(
     "add <file>",
@@ -53,3 +62,22 @@ yargs(hideBin(process.argv))
   )
   .demandCommand(1, "You need atleast one command")
   .help().argv;
+
+
+  async function startServer(){
+    const PORT = process.env.PORT || 4000 ;
+    app.use(bodyParser.json());
+    app.use(express.json());
+    const Mongo_Url = process.env.MONGO_URL;
+
+    await mongoose.connect(Mongo_Url).then(()=>console.log("DB Connected Successfully")).catch(()=>console.log("Error While Connecting With Mongo DB")) ;
+
+    app.use(cors({origin : "*"})) ;
+    
+    app.get("/",(req,res)=>{
+      return res.send("Welcome")
+    })
+    app.listen(PORT,()=>{
+      console.log(`App is listening to PORT : ${PORT}`)
+    })
+  }
