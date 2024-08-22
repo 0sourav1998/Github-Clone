@@ -16,17 +16,17 @@ const userSchema = new mongoose.Schema({
     },
     repositories : [{
         default : [] ,
-        type : Schema.Types.ObjectId ,
+        type : mongoose.Schema.Types.ObjectId ,
         ref : "Repositories"
     }] ,
     followedUser : [
         {
-            type : Schema.Types.ObjectId,
+            type : mongoose.Schema.Types.ObjectId,
             ref : "User"
         }
     ] ,
     starRepo : [{
-        type:Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref : "Repositories"
     }]
 })

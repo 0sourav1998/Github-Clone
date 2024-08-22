@@ -3,6 +3,7 @@ const app = express() ;
 const cors = require("cors") ;
 const mongoose = require("mongoose")
 const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser")
 require("dotenv").config();
 
 const yargs = require("yargs/yargs");
@@ -70,6 +71,7 @@ yargs(hideBin(process.argv))
     const PORT = process.env.PORT || 4000 ;
     app.use(bodyParser.json());
     app.use(express.json());
+    app.use(cookieParser())
     const Mongo_Url = process.env.MONGO_URL;
 
     await mongoose.connect(Mongo_Url).then(()=>console.log("DB Connected Successfully")).catch(()=>console.log("Error While Connecting With Mongo DB")) ;
