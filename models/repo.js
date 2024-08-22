@@ -16,12 +16,12 @@ const repoSchema = new mongoose.Schema({
         type : Boolean
     } ,
     owner : {
-        type : Schema.Types.ObjectId, 
+        type : mongoose.Schema.Types.ObjectId, 
         ref : "User",
         required : true 
     },
     issues : [{
-        type : Schema.Types.ObjectId,
+        type : mongoose.Schema.Types.ObjectId,
         ref : "Issues"
     }]
 })

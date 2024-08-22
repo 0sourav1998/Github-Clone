@@ -5,11 +5,11 @@ const {createRepository , getAllRepositories , fetchRepositoryById , fetchReposi
 
 router.post("/createRepository",createRepository) ;
 router.get("/getAllRepositories",getAllRepositories) ;
-router.get("/fetchRepositoryById",fetchRepositoryById) ;
-router.get("/fetchRepositoryByName",fetchRepositoryByName) ;
+router.get("/owner/:id",fetchRepositoryById) ;
+router.get("/name/:name",fetchRepositoryByName) ;
 router.get("/fetchRepositoriesByCurrentUser",fetchRepositoriesByCurrentUser) ;
-router.put("/updateRepository",updateRepository) ;
-router.delete("/deleteRepository",deleteRepository) ;
-router.patch("/toggleVisibilityById",toggleVisibilityById)
+router.put("/updateRepository/:id",updateRepository) ;
+router.delete("/deleteRepository/:id",deleteRepository) ;
+router.patch("/toggleVisibilityById/:id",toggleVisibilityById)
 
 module.exports = router ;
